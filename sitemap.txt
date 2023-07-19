@@ -1,5 +1,4 @@
 http://example.com/2023/07/19/test/
-http://example.com/2023/07/18/hello-world/
 http://example.com/myself/index.html
 http://example.com/about/index.html
 http://example.com/timeline/index.html
