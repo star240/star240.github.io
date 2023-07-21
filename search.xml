@@ -11,6 +11,20 @@
         <content type="html"><![CDATA[<h2 id="https协议为什么能够防止劫持"><a href="#https协议为什么能够防止劫持" class="headerlink" title="https协议为什么能够防止劫持"></a>https协议为什么能够防止劫持</h2><p>在讲https为什么能够防止劫持之前，先讲讲http为什么会被劫持。</p><h3 id="http劫持"><a href="#http劫持" class="headerlink" title="http劫持"></a>http劫持</h3><p>因为http是直接在tcp协议之上的，tcp协议本身不是加密协议，所以导致http协议的数据在网络中传输完全是明文的。http劫持就是，在客户端和服务端之间建立一个监听服务器，那么客户端和服务器之间的所有数据都可以被这个监听服务器监听到，那么当客户端向服务器发送的密码等敏感数据就会被劫持。所以当时https出现就是为了解决http劫持的问题，使用户的会话能够得到保护。</p><h3 id="https与http的区别"><a href="#https与http的区别" class="headerlink" title="https与http的区别"></a>https与http的区别</h3><p>https的原理就是通过TLS协议对http的传输进行加密，https与http的区别就是比http多了一层TLS，那么TLS真的可以保护我们的数据不被中间人劫持吗。</p><h3 id="为什么https劫持不可能"><a href="#为什么https劫持不可能" class="headerlink" title="为什么https劫持不可能"></a>为什么https劫持不可能</h3><p>假如直接进行劫持，因为https是通过tls进行加密传输的，加密和解密都需要对应的密钥，如果直接对https数据直接进行劫持，那么截获的数据就只会是一堆乱码的密文，因为我们是中间人，并没有解密的密钥。那我们是不是可以从https的上一层tls握手开始进行劫持，是不是能够劫持到密钥。</p><h4 id="TLS握手过程"><a href="#TLS握手过程" class="headerlink" title="TLS握手过程"></a>TLS握手过程</h4><ol><li>客户端发送 ClientHello：TLS 握手开始时，客户端向服务器发送一个称为 ClientHello 的消息。该消息包含支持的 TLS 版本号、加密套件列表和随机数等信息。</li><li>服务器回应 ServerHello：服务器收到 ClientHello 后，从客户端提供的加密套件列表中选择一个加密套件，并生成一个随机数。然后服务器将其作为 ServerHello 消息的一部分回复给客户端，同时发送服务器证书（或公钥）。</li><li>客户端验证服务器证书：客户端接收到服务器的 ServerHello 和证书后，会验证证书的合法性。这涉及到检查证书的签名、有效期、颁发机构等信息，以确保连接到的是合法的服务器。</li><li>客户端生成密钥：客户端生成一个用于本次会话的临时密钥，称为 Pre-Master Secret。然后使用服务器的公钥（或从证书中提取的公钥）对 Pre-Master Secret 进行加密，并将其发送给服务器。</li><li>服务器解密 Pre-Master Secret：服务器收到客户端发送的加密 Pre-Master Secret 后，使用自己的私钥对其进行解密，得到 Pre-Master Secret。</li><li>客户端和服务器生成会话密钥：客户端和服务器使用在握手过程中交换的随机数和 Pre-Master Secret 来生成会话密钥（Session Key）。这个会话密钥将用于加密和解密会话中的数据。</li><li>客户端发送 Finished 消息：客户端使用会话密钥加密一条 Finished 消息，并发送给服务器，以通知服务器握手过程已经完成。</li><li>服务器发送 Finished 消息：服务器也使用会话密钥加密一条 Finished 消息，并发送给客户端，以确认握手过程的完成</li></ol><p>假如我们作为一个中间人，当我们第一步我们可以获得客户端的随机数C，第二步我们可以获得服务器的随机数S和服务器的证书，第三步我们不需要验证，第四步我们可以截获由证书公钥加密的临时密钥，但由于这是一个公钥加密的数据，我们作为中间人，无法解密里面的数据，因为私钥只有服务器有，之后的步骤也就进行不下去了，也就无法获取最终生成的TLS的加密解密的密钥，也就无法对https的数据解密了。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>因为https有TLS加持，我们在TLS建立过程无法劫持到TLS的密钥，所以即便https数据被劫持也无法进行解密。</p>]]></content>
       
       
+      <categories>
+          
+          <category> 编程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> https </tag>
+            
+            <tag> 网络安全 </tag>
+            
+        </tags>
       
     </entry>
     
