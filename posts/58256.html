@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>https协议为什么能够防止劫持 | Callista's Blog</title><meta name="author" content="Callista"><meta name="copyright" content="Callista"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="https协议为什么能够防止劫持在讲https为什么能够防止劫持之前，先讲讲http为什么会被劫持。 http劫持因为http是直接在tcp协议之上的，tcp协议本身不是加密协议，所以导致http协议的数据在网络中传输完全是明文的。http劫持就是，在客户端和服务端之间建立一个监听服务器，那么客户端和服务器之间的所有数据都可以被这个监听服务器监听到，那么当客户端向服务器发送的密码等敏感数据就会被劫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="https协议为什么能够防止劫持">
+<meta property="og:url" content="http://blog.starant.link/posts/58256.html">
+<meta property="og:site_name" content="Callista&#39;s Blog">
+<meta property="og:description" content="https协议为什么能够防止劫持在讲https为什么能够防止劫持之前，先讲讲http为什么会被劫持。 http劫持因为http是直接在tcp协议之上的，tcp协议本身不是加密协议，所以导致http协议的数据在网络中传输完全是明文的。http劫持就是，在客户端和服务端之间建立一个监听服务器，那么客户端和服务器之间的所有数据都可以被这个监听服务器监听到，那么当客户端向服务器发送的密码等敏感数据就会被劫">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.starant.link/img/tls.jpg">
+<meta property="article:published_time" content="2023-07-20T04:58:51.000Z">
+<meta property="article:modified_time" content="2023-07-21T08:28:31.165Z">
+<meta property="article:author" content="Callista">
+<meta property="article:tag" content="https">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.starant.link/img/tls.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://blog.starant.link/posts/58256.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'https协议为什么能够防止劫持',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-21 16:28:31'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mycss.css"><script type="text/javascript" src="/js/mousemove.js"></script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Callista's Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/tls.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Callista's Blog"><span class="site-name">Callista's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">https协议为什么能够防止劫持</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-07-20T04:58:51.000Z" title="发表于 2023-07-20 12:58:51">2023-07-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-21T08:28:31.165Z" title="更新于 2023-07-21 16:28:31">2023-07-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/programming/">编程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="https协议为什么能够防止劫持"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="https协议为什么能够防止劫持"><a href="#https协议为什么能够防止劫持" class="headerlink" title="https协议为什么能够防止劫持"></a>https协议为什么能够防止劫持</h2><p>在讲https为什么能够防止劫持之前，先讲讲http为什么会被劫持。</p>
+<h3 id="http劫持"><a href="#http劫持" class="headerlink" title="http劫持"></a>http劫持</h3><p>因为http是直接在tcp协议之上的，tcp协议本身不是加密协议，所以导致http协议的数据在网络中传输完全是明文的。http劫持就是，在客户端和服务端之间建立一个监听服务器，那么客户端和服务器之间的所有数据都可以被这个监听服务器监听到，那么当客户端向服务器发送的密码等敏感数据就会被劫持。所以当时https出现就是为了解决http劫持的问题，使用户的会话能够得到保护。</p>
+<h3 id="https与http的区别"><a href="#https与http的区别" class="headerlink" title="https与http的区别"></a>https与http的区别</h3><p>https的原理就是通过TLS协议对http的传输进行加密，https与http的区别就是比http多了一层TLS，那么TLS真的可以保护我们的数据不被中间人劫持吗。</p>
+<h3 id="为什么https劫持不可能"><a href="#为什么https劫持不可能" class="headerlink" title="为什么https劫持不可能"></a>为什么https劫持不可能</h3><p>假如直接进行劫持，因为https是通过tls进行加密传输的，加密和解密都需要对应的密钥，如果直接对https数据直接进行劫持，那么截获的数据就只会是一堆乱码的密文，因为我们是中间人，并没有解密的密钥。那我们是不是可以从https的上一层tls握手开始进行劫持，是不是能够劫持到密钥。</p>
+<h4 id="TLS握手过程"><a href="#TLS握手过程" class="headerlink" title="TLS握手过程"></a>TLS握手过程</h4><ol>
+<li>客户端发送 ClientHello：TLS 握手开始时，客户端向服务器发送一个称为 ClientHello 的消息。该消息包含支持的 TLS 版本号、加密套件列表和随机数等信息。</li>
+<li>服务器回应 ServerHello：服务器收到 ClientHello 后，从客户端提供的加密套件列表中选择一个加密套件，并生成一个随机数。然后服务器将其作为 ServerHello 消息的一部分回复给客户端，同时发送服务器证书（或公钥）。</li>
+<li>客户端验证服务器证书：客户端接收到服务器的 ServerHello 和证书后，会验证证书的合法性。这涉及到检查证书的签名、有效期、颁发机构等信息，以确保连接到的是合法的服务器。</li>
+<li>客户端生成密钥：客户端生成一个用于本次会话的临时密钥，称为 Pre-Master Secret。然后使用服务器的公钥（或从证书中提取的公钥）对 Pre-Master Secret 进行加密，并将其发送给服务器。</li>
+<li>服务器解密 Pre-Master Secret：服务器收到客户端发送的加密 Pre-Master Secret 后，使用自己的私钥对其进行解密，得到 Pre-Master Secret。</li>
+<li>客户端和服务器生成会话密钥：客户端和服务器使用在握手过程中交换的随机数和 Pre-Master Secret 来生成会话密钥（Session Key）。这个会话密钥将用于加密和解密会话中的数据。</li>
+<li>客户端发送 Finished 消息：客户端使用会话密钥加密一条 Finished 消息，并发送给服务器，以通知服务器握手过程已经完成。</li>
+<li>服务器发送 Finished 消息：服务器也使用会话密钥加密一条 Finished 消息，并发送给客户端，以确认握手过程的完成</li>
+</ol>
+<p>假如我们作为一个中间人，当我们第一步我们可以获得客户端的随机数C，第二步我们可以获得服务器的随机数S和服务器的证书，第三步我们不需要验证，第四步我们可以截获由证书公钥加密的临时密钥，但由于这是一个公钥加密的数据，我们作为中间人，无法解密里面的数据，因为私钥只有服务器有，之后的步骤也就进行不下去了，也就无法获取最终生成的TLS的加密解密的密钥，也就无法对https的数据解密了。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>因为https有TLS加持，我们在TLS建立过程无法劫持到TLS的密钥，所以即便https数据被劫持也无法进行解密。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://blog.starant.link">Callista</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.starant.link/posts/58256.html">http://blog.starant.link/posts/58256.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.starant.link" target="_blank">Callista's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/https/">https</a><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></div><div class="post_share"><div class="social-share" data-image="/img/tls.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/26317.html" title="linux快捷键大全"><img class="cover" src="/img/linuxcommand.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">linux快捷键大全</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Callista</div><div class="author-info__description">Callista's Blog</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的个人博客！在这里，我将分享我的思考、经验和知识。我希望这个博客能够为你提供有价值的信息，并给你带来启发和帮助。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#https%E5%8D%8F%E8%AE%AE%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%A4%9F%E9%98%B2%E6%AD%A2%E5%8A%AB%E6%8C%81"><span class="toc-number">1.</span> <span class="toc-text">https协议为什么能够防止劫持</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#http%E5%8A%AB%E6%8C%81"><span class="toc-number">1.1.</span> <span class="toc-text">http劫持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#https%E4%B8%8Ehttp%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.</span> <span class="toc-text">https与http的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88https%E5%8A%AB%E6%8C%81%E4%B8%8D%E5%8F%AF%E8%83%BD"><span class="toc-number">1.3.</span> <span class="toc-text">为什么https劫持不可能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">TLS握手过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/58256.html" title="https协议为什么能够防止劫持">https协议为什么能够防止劫持</a><time datetime="2023-07-20T04:58:51.000Z" title="发表于 2023-07-20 12:58:51">2023-07-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/26317.html" title="linux快捷键大全">linux快捷键大全</a><time datetime="2023-07-19T07:58:51.000Z" title="发表于 2023-07-19 15:58:51">2023-07-19</time></div></div></div></div></div></div></main><footer id="footer" style="background: #2F4F4F"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Callista</div><div class="footer_custom_text">Hi, welcome to my <a href="https://blog.starant.link/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
