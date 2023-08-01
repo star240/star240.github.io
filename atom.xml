@@ -6,7 +6,7 @@
   <link href="http://blog.starant.link/atom.xml" rel="self"/>
   
   <link href="http://blog.starant.link/"/>
-  <updated>2023-07-21T08:28:31.165Z</updated>
+  <updated>2023-08-01T05:58:30.703Z</updated>
   <id>http://blog.starant.link/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>badusb制作</title>
+    <link href="http://blog.starant.link/posts/55422.html"/>
+    <id>http://blog.starant.link/posts/55422.html</id>
+    <published>2023-08-01T04:58:51.000Z</published>
+    <updated>2023-08-01T05:58:30.703Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="badusb制作"><a href="#badusb制作" class="headerlink" title="badusb制作"></a>badusb制作</h2><h3 id="1-购买Digspark开发板"><a href="#1-购买Digspark开发板" class="headerlink" title="1.购买Digspark开发板"></a>1.购买Digspark开发板</h3><p><img src="/picture/badusb/de79b84937d714eebb7068275a3b7fb.png" alt="Alt text"><br>一个10块钱左右</p><h3 id="2-安装驱动"><a href="#2-安装驱动" class="headerlink" title="2.安装驱动"></a>2.安装驱动</h3><p>Digispark驱动程序 (Windows)：<a href="https://github.com/digistump/DigistumpArduino/releases">https://github.com/digistump/DigistumpArduino/releases</a><br>下载，Digistump.Drivers.zip，解压，运行DPinst64.exe，三个都是勾即可<br><img src="/picture/badusb/ea865d6e81a54f76545216f112544fd.png" alt="Alt text"><br><img src="/picture/badusb/3d111308409bd3237e320a867155b25.png" alt="Alt text"></p><h3 id="3-下载Arduino-IDE"><a href="#3-下载Arduino-IDE" class="headerlink" title="3.下载Arduino IDE"></a>3.下载Arduino IDE</h3><p>下载Arduino IDE： <a href="https://www.arduino.cc/en/Main/Software">https://www.arduino.cc/en/Main/Software</a><br>下载最新版即可<br><img src="/picture/badusb/edd919d3cc41f62754a013026e9ae0d.png" alt="Alt text"></p><h3 id="4-配置Arduino-IDE"><a href="#4-配置Arduino-IDE" class="headerlink" title="4.配置Arduino IDE"></a>4.配置Arduino IDE</h3><p>打开 文件-&gt;首选项<br>把这个网址添加到附加开发板管理网址<a href="http://digistump.com/package_digistump_index.json%EF%BC%8C%E4%B8%8B%E8%BD%BD%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%AF%9D%EF%BC%8C%E5%8F%AF%E8%83%BD%E8%A6%81%E6%8C%82%E6%A2%AF%E5%AD%90">http://digistump.com/package_digistump_index.json，下载失败的话，可能要挂梯子</a><br><img src="/picture/badusb/image-6.png" alt="Alt text"></p><p>打开 工具-&gt;开发板管理器，找到Digistump AVR Boards进行安装，安装失败可能要挂梯子<br><img src="/picture/badusb/image.png" alt="Alt text"></p><h3 id="5-添加DEMO并烧录"><a href="#5-添加DEMO并烧录" class="headerlink" title="5.添加DEMO并烧录"></a>5.添加DEMO并烧录</h3><p>选择开发板：工具-&gt;开发板-&gt;Digistump AVR Boards-&gt;Digspark(defealt)<br><img src="/picture/badusb/image-1.png" alt="Alt text"></p><p>新建示例：文件-&gt;示例-&gt;DigsparkKeyboard-&gt;Keyboard<br><img src="/picture/badusb/image-2.png" alt="Alt text"></p><p>示例代码：<br><img src="/picture/badusb/image-3.png" alt="Alt text"><br>示例的意思是每隔5秒模拟键盘输入一次Hello Digispark!</p><p>上传示例：点击左上角的右箭头<br><img src="/picture/badusb/image-4.png" alt="Alt text"></p><p>这时候插入Digspark开发板即可，在这之前都不要插入开发板<br><img src="/picture/badusb/image-5.png" alt="Alt text"><br>看到Thank you！就是烧录成功了，每隔5秒便会输入一次Hello Digispark。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;badusb制作&quot;&gt;&lt;a href=&quot;#badusb制作&quot; class=&quot;headerlink&quot; title=&quot;badusb制作&quot;&gt;&lt;/a&gt;badusb制作&lt;/h2&gt;&lt;h3 id=&quot;1-购买Digspark开发板&quot;&gt;&lt;a href=&quot;#1-购买Digspark开发</summary>
+      
+    
+    
+    
+    <category term="编程" scheme="http://blog.starant.link/categories/programming/"/>
+    
+    
+    <category term="https" scheme="http://blog.starant.link/tags/https/"/>
+    
+    <category term="网络安全" scheme="http://blog.starant.link/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>https协议为什么能够防止劫持</title>
@@ -47,9 +73,9 @@
     <link href="http://blog.starant.link/posts/26317.html"/>
     <id>http://blog.starant.link/posts/26317.html</id>
     <published>2023-07-19T07:58:51.000Z</published>
-    <updated>2023-07-21T08:28:31.161Z</updated>
+    <updated>2023-08-01T05:56:53.463Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Linux快捷键大全"><a href="#Linux快捷键大全" class="headerlink" title="Linux快捷键大全"></a>Linux快捷键大全</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">1、tab //命令或路径等的补全键，linux用的最多的一个快捷键</span><br><span class="line">2、ctrl+a //光标迅速回到行首</span><br><span class="line">3、ctrl+e //光标迅速回到行尾</span><br><span class="line">4、ctrl+f //光标向右移动一个字符</span><br><span class="line">5、ctrl+b //光标向左移动一个字符</span><br><span class="line">6、ctrl+insert //复制命令行内容（mac系统不能使用）</span><br><span class="line">7、shift+insert //粘贴命令行内容（mac系统不能使用）</span><br><span class="line">8、ctrl+k //剪切（删除）光标处到行尾的所有字符</span><br><span class="line">9、ctrl+u //剪切（删除）光标处到行首的所有字符</span><br><span class="line">10、ctrl+w //剪切（删除）光标前的一个字符</span><br><span class="line">11、ctrl+y //粘贴 ctrl+k、ctrl+u、ctrl+w删除的字符</span><br><span class="line">12、ctrl+c //中断终端正在执行的任务并开启一个新的一行</span><br><span class="line">13、ctrl+h //删除光标前的一个字符（相当于退格键）</span><br><span class="line">14、ctrl+d //退出当前shell命令行，如果是切换过来的用户，则执行这个命令回退到原用户</span><br><span class="line">15、ctrl+r //搜索命令行使用过的历史命令记录</span><br><span class="line">16、ctrl+g //从ctrl+r的搜索历史命令模式中退出</span><br><span class="line">17、ctrl+l //清楚屏幕所有的内容，并开启一个新的一行</span><br><span class="line">18、ctrl+s //锁定终端，使之任何人无法输入</span><br><span class="line">19、ctrl+q //解锁ctrl+s的锁定状态</span><br><span class="line">20、ctrl+z //暂停在终端运行的任务,使用&quot;fg&quot;命令可以使暂停恢复</span><br><span class="line">21、!! //执行上一条命令</span><br><span class="line">22、!pw //这是一个例子，是执行以pw开头的命令，这里的pw可以换成任何已经执行过的字符</span><br><span class="line">23、!pw:p //这是一个例子，是仅打印以pw开头的命令，但不执行，最后的那个“p”是命令固定字符</span><br><span class="line">24、!num //执行历史命令列表的第num条命令，num代指任何数字（前提是历史命令里必须存在）</span><br><span class="line">25、!$ //代指上一条命令的最后一个参数，该命令常用于shell脚本中</span><br><span class="line">26、esc+. //注意那个&quot;.&quot; 意思是获取上一条命令的(以空格为分隔符)最后的部分</span><br><span class="line">27、esc+b //移动到当前单词的开头</span><br><span class="line">28、esc+f //移动到当前单词的结尾</span><br><span class="line">19.！！为上一条命令，！2为历史命令的第二条</span><br><span class="line">19.du -sh /home      查看递归查看文件夹占用的空间</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h2 id="Linux快捷键大全"><a href="#Linux快捷键大全" class="headerlink" title="Linux快捷键大全"></a>Linux快捷键大全</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">1、tab //命令或路径等的补全键，linux用的最多的一个快捷键</span><br><span class="line">2、ctrl+a //光标迅速回到行首</span><br><span class="line">3、ctrl+e //光标迅速回到行尾</span><br><span class="line">4、ctrl+f //光标向右移动一个字符</span><br><span class="line">5、ctrl+b //光标向左移动一个字符</span><br><span class="line">6、ctrl+insert //复制命令行内容（mac系统不能使用）</span><br><span class="line">7、shift+insert //粘贴命令行内容（mac系统不能使用）</span><br><span class="line">8、ctrl+k //剪切（删除）光标处到行尾的所有字符</span><br><span class="line">9、ctrl+u //剪切（删除）光标处到行首的所有字符</span><br><span class="line">10、ctrl+w //剪切（删除）光标前的一个字符</span><br><span class="line">11、ctrl+y //粘贴 ctrl+k、ctrl+u、ctrl+w删除的字符</span><br><span class="line">12、ctrl+c //中断终端正在执行的任务并开启一个新的一行</span><br><span class="line">13、ctrl+h //删除光标前的一个字符（相当于退格键）</span><br><span class="line">14、ctrl+d //退出当前shell命令行，如果是切换过来的用户，则执行这个命令回退到原用户</span><br><span class="line">15、ctrl+r //搜索命令行使用过的历史命令记录</span><br><span class="line">16、ctrl+g //从ctrl+r的搜索历史命令模式中退出</span><br><span class="line">17、ctrl+l //清楚屏幕所有的内容，并开启一个新的一行</span><br><span class="line">18、ctrl+s //锁定终端，使之任何人无法输入</span><br><span class="line">19、ctrl+q //解锁ctrl+s的锁定状态</span><br><span class="line">20、ctrl+z //暂停在终端运行的任务,使用&quot;fg&quot;命令可以使暂停恢复</span><br><span class="line">21、!! //执行上一条命令</span><br><span class="line">22、!pw //这是一个例子，是执行以pw开头的命令，这里的pw可以换成任何已经执行过的字符</span><br><span class="line">23、!pw:p //这是一个例子，是仅打印以pw开头的命令，但不执行，最后的那个“p”是命令固定字符</span><br><span class="line">24、!num //执行历史命令列表的第num条命令，num代指任何数字（前提是历史命令里必须存在）</span><br><span class="line">25、!$ //代指上一条命令的最后一个参数，该命令常用于shell脚本中</span><br><span class="line">26、esc+. //注意那个&quot;.&quot; 意思是获取上一条命令的(以空格为分隔符)最后的部分</span><br><span class="line">27、esc+b //移动到当前单词的开头</span><br><span class="line">28、esc+f //移动到当前单词的结尾</span><br></pre></td></tr></table></figure>]]></content>
     
     
       
